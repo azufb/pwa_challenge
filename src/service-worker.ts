@@ -79,7 +79,7 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const cacheName = "pwa_challenge-v1"
+const cacheName = "pwa_challenge-v2"
 const appShellFiles = [
     "index.html",
     "index.tsx",
