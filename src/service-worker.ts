@@ -13,7 +13,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-import logo512 from "../public/logo512.png";
+import logo512 from "./logo512.png";
 
 declare const self: ServiceWorkerGlobalScope;
 

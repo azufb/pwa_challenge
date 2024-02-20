@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { register } from "../../serviceWorkerRegistration"
 
 export const DummyRequestNotification = () => {
     const handleClickBtn = () => {
