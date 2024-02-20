@@ -2,8 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Counter } from './components/Counter';
+import { DummyRequestNotification } from './components/DummyRequestNotification';
 
-function App() {
+const App = () =>{
   return (
     <div className="App">
       <header className="App-header">
@@ -13,6 +14,7 @@ function App() {
         </p>
       </header>
       <Counter />
+      <DummyRequestNotification />
     </div>
   );
 }
