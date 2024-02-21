@@ -43,14 +43,12 @@ export const DummyRequestNotification = () => {
     }
 
     return (
-        <div>
+        <Wrapper>
             <button id="requestNotificationBtn" onClick={() => handleClickBtn()}>通知の確認</button>
-        </div>
+        </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    padding: 1.5rem 0;
 `

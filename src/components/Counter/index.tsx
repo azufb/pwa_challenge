@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 export const Counter = () => {
     const [count, setCount] = useState<number>(0);
@@ -14,13 +15,21 @@ export const Counter = () => {
     }
 
     return (
-        <div>
+        <Wrapper>
             <h2>Counter</h2>
             <div>
                 <button onClick={() => increment()}>+</button>
-                <span>{count}</span>
+                <Count>{count}</Count>
                 <button onClick={() => decrement()}>-</button>
             </div>
-        </div>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+    color: white;
+`
+
+const Count = styled.span`
+    padding: 0 1rem;
+`
