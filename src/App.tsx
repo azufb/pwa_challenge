@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Counter } from './components/Counter';
 import { DummyRequestNotification } from './components/DummyRequestNotification';
+import { urlBase64ToUint8Array } from './tools';
 
 const App = () =>{
 
