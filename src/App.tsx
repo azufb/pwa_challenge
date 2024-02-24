@@ -15,7 +15,7 @@ const App = () =>{
     navigator.serviceWorker.ready.then((registration) =>{
       return registration.pushManager.getSubscription().then(async (subscription) => {
         if (subscription) {
-          const response = await fetch("./vapidPublicKey");
+          const response = await fetch(`${process.env.REACT_APP_BASE_URL}/vapidPublicKey`);
           const vapidPublicKey = await response.text();
           const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
           
@@ -27,7 +27,7 @@ const App = () =>{
       });
     }).then((subscription: PushSubscription | undefined) => {
       if (subscription) {
-        fetch("./register", {
+        fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
           method: "post",
           headers: {
             "Content-type": "application/json"
@@ -39,7 +39,7 @@ const App = () =>{
 
         if (hour === 12 && minute === 0) {
           // プッシュ通知
-          fetch("./pushNotification", {
+          fetch(`${process.env.REACT_APP_BASE_URL}/pushNotification`, {
             method: "post",
             headers: {
               "Content-type": "application/json"
