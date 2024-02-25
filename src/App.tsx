@@ -19,6 +19,7 @@ const App = () =>{
     navigator.serviceWorker.register("./service-worker.js")
     .then(async (registration) =>{
       const subscription = await registration.pushManager.getSubscription();
+      console.log("subscription:", subscription)
       if (subscription) {
         console.log("subscription1");
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/vapidPublicKey`);
