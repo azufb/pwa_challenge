@@ -99,6 +99,7 @@ self.addEventListener("install", (e) => {
 });
 
 self.addEventListener("push", (event) => {
+  console.log(event.data)
   const payload = event.data ? event.data.text() : "no payload";
 
   event.waitUntil(

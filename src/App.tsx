@@ -11,6 +11,10 @@ const App = () =>{
     const today: Date = new Date();
     const hour: number = today.getHours();
     const minute: number = today.getMinutes();
+    const second: number = today.getSeconds();
+    console.log("hour", hour)
+    console.log("minute", minute)
+    console.log("second", second);
     
     navigator.serviceWorker.ready.then((registration) =>{
       return registration.pushManager.getSubscription().then(async (subscription) => {
