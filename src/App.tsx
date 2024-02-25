@@ -16,19 +16,20 @@ const App = () =>{
     console.log("minute", minute)
     console.log("second", second);
     
-    navigator.serviceWorker.ready.then((registration) =>{
-      return registration.pushManager.getSubscription().then(async (subscription) => {
-        if (subscription) {
-          const response = await fetch(`${process.env.REACT_APP_BASE_URL}/vapidPublicKey`);
-          const vapidPublicKey = await response.text();
-          const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
-          
-          return registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: convertedVapidKey
-          });
-        }
-      });
+    navigator.serviceWorker.register("./service-worker.js")
+    .then(async (registration) =>{
+      console.log(navigator.serviceWorker.ready)
+      const subscription = await registration.pushManager.getSubscription();
+      if (subscription) {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/vapidPublicKey`);
+        const vapidPublicKey = await response.text();
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+
+        return registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidKey
+        });
+      }
     }).then((subscription: PushSubscription | undefined) => {
       if (subscription) {
         fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
@@ -41,8 +42,7 @@ const App = () =>{
           })
         })
 
-        if (hour === 12 && minute === 0) {
-          // プッシュ通知
+        // プッシュ通知
           fetch(`${process.env.REACT_APP_BASE_URL}/pushNotification`, {
             method: "post",
             headers: {
@@ -54,10 +54,24 @@ const App = () =>{
           }).then((response) => {
             console.log("response", response);
           })
-        }
+
+        // if (hour === 12 && minute === 0) {
+        //   // プッシュ通知
+        //   fetch(`${process.env.REACT_APP_BASE_URL}/pushNotification`, {
+        //     method: "post",
+        //     headers: {
+        //       "Content-type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //       subscription: subscription
+        //     })
+        //   }).then((response) => {
+        //     console.log("response", response);
+        //   })
+        // }
       }
     })
-  }, 1000)
+  }, 10000)
 
   return (
     <div className="App">
