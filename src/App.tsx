@@ -18,9 +18,9 @@ const App = () =>{
     
     navigator.serviceWorker.register("./service-worker.js")
     .then(async (registration) =>{
-      console.log(navigator.serviceWorker.ready)
       const subscription = await registration.pushManager.getSubscription();
       if (subscription) {
+        console.log("subscription1");
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/vapidPublicKey`);
         const vapidPublicKey = await response.text();
         const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
@@ -32,6 +32,7 @@ const App = () =>{
       }
     }).then((subscription: PushSubscription | undefined) => {
       if (subscription) {
+        console.log("subscription2");
         fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
           method: "post",
           headers: {
@@ -43,17 +44,17 @@ const App = () =>{
         })
 
         // プッシュ通知
-          fetch(`${process.env.REACT_APP_BASE_URL}/pushNotification`, {
-            method: "post",
-            headers: {
-              "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-              subscription: subscription
-            })
-          }).then((response) => {
-            console.log("response", response);
+        fetch(`${process.env.REACT_APP_BASE_URL}/pushNotification`, {
+          method: "post",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            subscription: subscription
           })
+        }).then((response) => {
+          console.log("response", response);
+        })
 
         // if (hour === 12 && minute === 0) {
         //   // プッシュ通知
